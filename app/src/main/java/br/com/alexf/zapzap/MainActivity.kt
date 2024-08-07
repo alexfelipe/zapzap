@@ -29,6 +29,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,14 +65,17 @@ sealed class NavItem(
         icon = Icons.AutoMirrored.Filled.Message,
         label = "Chats"
     )
+
     data object Updates : NavItem(
         icon = Icons.Default.CircleNotifications,
         label = "Updates"
     )
+
     data object Communities : NavItem(
         icon = Icons.Default.People,
         label = "Communities"
     )
+
     data object Calls : NavItem(
         icon = Icons.Default.Call,
         label = "Calls"
@@ -94,6 +98,14 @@ fun App() {
     }
     val pagerState = rememberPagerState {
         items.size
+    }
+    LaunchedEffect(selectedItem) {
+        pagerState.animateScrollToPage(
+            items.indexOf(selectedItem)
+        )
+    }
+    LaunchedEffect(pagerState.targetPage) {
+        selectedItem = items[pagerState.targetPage]
     }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -134,7 +146,7 @@ fun App() {
             Modifier.padding(innerPadding)
         ) { page ->
             val item = items[page]
-            when(item) {
+            when (item) {
                 NavItem.Calls -> CallsScreen()
                 NavItem.Chats -> ChatsListScreen()
                 NavItem.Communities -> CommunitiesScreen()
