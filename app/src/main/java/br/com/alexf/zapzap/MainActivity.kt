@@ -40,6 +40,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.alexf.zapzap.features.chatsList.ChatsListScreen
 import br.com.alexf.zapzap.ui.theme.ZapZapTheme
 
 class MainActivity : ComponentActivity() {
@@ -204,19 +205,6 @@ fun App() {
                 ScreenItem.Updates -> UpdatesScreen()
             }
         }
-    }
-}
-
-@Composable
-fun ChatsListScreen(modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize()) {
-        Text(
-            "Chats List",
-            Modifier.align(Alignment.Center),
-            style = TextStyle.Default.copy(
-                fontSize = 32.sp
-            )
-        )
     }
 }
 
